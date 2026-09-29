@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #111827;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  background: #1f2937;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.card h1 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #d1d5db;
+  margin-bottom: 30px;
+}
+
+.efeito-botao {
+  position: relative;
+  overflow: hidden;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 15px 35px;
+
+  background: #7c3aed;
+  color: white;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.efeito-botao:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #8b5cf6;
+}
+
+.brilho {
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+
+  transform: skewX(-25deg);
+}
+
+.efeito-botao:hover .brilho {
+  animation: passarBrilho 0.8s;
+}
+
+@keyframes passarBrilho {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 150%;
+  }
+}
