@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +7,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #111827;
+  background: #080516;
 }
 
 .app {
@@ -14,82 +15,192 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at center, #251052 0%, #100923 45%, #080516 100%);
+  overflow: hidden;
 }
 
 .card {
-  width: 400px;
-  padding: 40px;
+  width: 100%;
+  max-width: 430px;
+  padding: 45px 30px;
   text-align: center;
-  background: #1f2937;
-  border-radius: 20px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  background: rgba(26, 17, 52, 0.9);
+  border: 1px solid rgba(177, 119, 255, 0.4);
+  border-radius: 25px;
+  box-shadow: 0 0 50px rgba(130, 60, 255, 0.18);
+}
+
+.icone {
+  color: #d8b4fe;
+  font-size: 48px;
+  margin-bottom: 15px;
+  animation: flutuar 3s ease-in-out infinite;
+  text-shadow: 0 0 20px #a855f7;
 }
 
 .card h1 {
   color: white;
+  font-size: 30px;
   margin-bottom: 15px;
 }
 
 .card p {
-  color: #d1d5db;
-  margin-bottom: 30px;
+  color: #d8d0ed;
+  line-height: 1.6;
+}
+
+.card > p:first-of-type {
+  margin-bottom: 32px;
 }
 
 .efeito-botao {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
-
-  border: none;
-  border-radius: 12px;
-
-  padding: 15px 35px;
-
-  background: #7c3aed;
+  border: 1px solid #c4a0ff;
+  border-radius: 14px;
+  padding: 17px 35px;
+  background: linear-gradient(135deg, #9333ea, #6d28d9, #4c1d95);
   color: white;
-
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
-
   cursor: pointer;
-
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .efeito-botao:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 25px #8b5cf6;
+  box-shadow:
+    0 0 20px #a855f7,
+    0 0 45px rgba(168, 85, 247, 0.5);
+}
+
+.efeito-botao:active {
+  transform: scale(0.94);
+}
+
+.texto-botao {
+  position: relative;
+  z-index: 3;
 }
 
 .brilho {
   position: absolute;
-
+  z-index: 2;
   top: 0;
-  left: -100%;
-
-  width: 60%;
+  left: -120%;
+  width: 70%;
   height: 100%;
-
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.75),
     transparent
   );
-
   transform: skewX(-25deg);
+  pointer-events: none;
 }
 
 .efeito-botao:hover .brilho {
-  animation: passarBrilho 0.8s;
+  animation: passarBrilho 0.8s ease;
+}
+
+.efeito-botao.ativado {
+  background: linear-gradient(135deg, #ec4899, #9333ea, #4f46e5);
+  box-shadow:
+    0 0 20px #c084fc,
+    0 0 50px rgba(217, 70, 239, 0.55);
+}
+
+.explosao {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particula {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #e9d5ff, 0 0 20px #c084fc;
+  animation: explodir 700ms ease-out both;
+  animation-delay: calc(var(--i) * 15ms);
+}
+
+.particula:nth-child(3n) {
+  background: #f0abfc;
+}
+
+.particula:nth-child(3n + 1) {
+  background: #93c5fd;
+}
+
+.mensagem {
+  min-height: 52px;
+  margin-top: 28px;
+  color: #e9d5ff !important;
+  animation: aparecer 0.45s ease both;
 }
 
 @keyframes passarBrilho {
   from {
-    left: -100%;
+    left: -120%;
   }
-
   to {
     left: 150%;
+  }
+}
+
+@keyframes explodir {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + cos(var(--i) * 30deg) * 90px),
+        calc(-50% + sin(var(--i) * 30deg) * 90px)
+      )
+      scale(1.5);
+  }
+}
+
+@keyframes flutuar {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
